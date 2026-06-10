@@ -899,13 +899,33 @@ const server = new Server(
   }
 );
 
+// Server-beta-only tools throw in worker mode (requireServerBetaForObservationTool),
+// so don't advertise them there. Non-Claude MCP clients (e.g. VS Code Copilot)
+// pick tools by name match and would otherwise call observation_search instead
+// of the worker-mode `search` and surface the runtime error to the user.
+// Evaluated per tools/list request, so flipping CLAUDE_MEM_RUNTIME still takes
+// effect when the client refreshes its tool list.
+const SERVER_BETA_ONLY_TOOLS = new Set([
+  'observation_add',
+  'observation_record_event',
+  'observation_search',
+  'observation_context',
+  'observation_generation_status',
+  'memory_add',
+  'memory_search',
+  'memory_context',
+]);
+
 server.setRequestHandler(ListToolsRequestSchema, async () => {
+  const serverBetaActive = selectRuntime() === 'server-beta';
   return {
-    tools: tools.map(tool => ({
-      name: tool.name,
-      description: tool.description,
-      inputSchema: tool.inputSchema
-    }))
+    tools: tools
+      .filter(tool => serverBetaActive || !SERVER_BETA_ONLY_TOOLS.has(tool.name))
+      .map(tool => ({
+        name: tool.name,
+        description: tool.description,
+        inputSchema: tool.inputSchema
+      }))
   };
 });
 

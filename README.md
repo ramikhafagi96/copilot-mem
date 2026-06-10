@@ -130,7 +130,7 @@
 Install with a single command:
 
 ```bash
-npx claude-mem install
+**npx claude-mem install**
 ```
 
 Or install for Gemini CLI (auto-detects `~/.gemini`):
@@ -170,10 +170,10 @@ The installer handles dependencies, plugin setup, AI provider configuration, wor
 
 **Key Features:**
 
-- 🧠 **Persistent Memory** - Context survives across sessions
-- 📊 **Progressive Disclosure** - Layered memory retrieval with token cost visibility
-- 🔍 **Skill-Based Search** - Query your project history with mem-search skill
-- 🖥️ **Web Viewer UI** - Real-time memory stream at http://localhost:37777
+- 🧠 **Persistent Memory** - **Context survives across sessions**
+- 📊 **Progressive Disclosure** - **Layered memory retrieval** with token cost visibility
+- 🔍 **Skill-Based Search** - **Query your project history** with mem-search skill
+- 🖥️ **Web Viewer UI** - **Real-time memory stream** at http://localhost:37777
 - 💻 **Claude Desktop Skill** - Search memory from Claude Desktop conversations
 - 🔒 **Privacy Control** - Use `<private>` tags to exclude sensitive content from storage
 - ⚙️ **Context Configuration** - Fine-grained control over what context gets injected
@@ -240,15 +240,15 @@ Claude-Mem provides intelligent memory search through **4 MCP tools** following 
 
 **The 3-Layer Workflow:**
 
-1. **`search`** - Get compact index with IDs (~50-100 tokens/result)
-2. **`timeline`** - Get chronological context around interesting results
-3. **`get_observations`** - Fetch full details ONLY for filtered IDs (~500-1,000 tokens/result)
+1. **`search`** - **Get compact index with IDs** (~50-100 tokens/result)
+2. **`timeline`** - **Get chronological context** around interesting results
+3. **`get_observations`** - **Fetch full details ONLY for filtered IDs** (~500-1,000 tokens/result)
 
 **How It Works:**
 - Claude uses MCP tools to search your memory
-- Start with `search` to get an index of results
-- Use `timeline` to see what was happening around specific observations
-- Use `get_observations` to fetch full details for relevant IDs
+- **Start with `search`** to get an index of results
+- **Use `timeline`** to see what was happening around specific observations
+- **Use `get_observations`** to fetch full details for relevant IDs
 - **~10x token savings** by filtering before fetching details
 
 **Available MCP Tools:**
@@ -283,10 +283,10 @@ See **[Beta Features Documentation](https://docs.claude-mem.ai/beta-features)** 
 
 ## System Requirements
 
-- **Node.js**: 20.0.0 or higher
-- **Claude Code**: Latest version with plugin support
-- **Bun**: JavaScript runtime and process manager (auto-installed if missing)
-- **uv**: Python package manager for vector search (auto-installed if missing)
+- **Node.js**: **20.0.0 or higher**
+- **Claude Code**: **Latest version** with plugin support
+- **Bun**: JavaScript runtime and process manager **(auto-installed if missing)**
+- **uv**: Python package manager for vector search **(auto-installed if missing)**
 - **SQLite 3**: For persistent storage (bundled)
 
 ---
