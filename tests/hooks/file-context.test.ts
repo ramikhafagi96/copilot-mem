@@ -299,4 +299,43 @@ describe('fileContextHandler — #2094 (no Read mutation)', () => {
     expect(result.hookSpecificOutput).toBeUndefined();
     expect(fetchSpy).not.toHaveBeenCalled();
   });
+
+  // VS Code Copilot parses hook matchers without applying them, so PreToolUse
+  // fires for every tool there — including normalized edits whose tool_input
+  // carries file_path. Those must not inject file timelines.
+  it('suppresses mutating tools on the single-file_path flow (VS Code matcher gap)', async () => {
+    fetchSpy = spyOn(globalThis, 'fetch').mockResolvedValue(
+      makeObservationsResponse([{ id: 1, created_at_epoch: Date.now() + 60_000 }])
+    );
+
+    for (const toolName of ['Edit', 'Write', 'MultiEdit']) {
+      const result = await fileContextHandler.execute({
+        sessionId: 'sess',
+        cwd: tmpDir,
+        toolName,
+        toolInput: { file_path: testFile },
+      });
+
+      expect(result.continue).toBe(true);
+      expect(result.hookSpecificOutput).toBeUndefined();
+    }
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('still honors an explicit filePaths array on a mutating tool name', async () => {
+    const future = Date.now() + 60_000;
+    fetchSpy = spyOn(globalThis, 'fetch').mockResolvedValue(
+      makeObservationsResponse([{ id: 1, created_at_epoch: future, title: 'Main file context' }])
+    );
+
+    const result = await fileContextHandler.execute({
+      sessionId: 'sess',
+      cwd: tmpDir,
+      toolName: 'Bash',
+      toolInput: { filePaths: [testFile] },
+    });
+
+    expect(result.hookSpecificOutput).toBeDefined();
+    expect(result.hookSpecificOutput!.additionalContext).toContain('Main file context');
+  });
 });

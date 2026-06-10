@@ -72,7 +72,10 @@ async function executeHookPipeline(
 ): Promise<number> {
   const rawInput = await readJsonFromStdin();
   const input = adapter.normalizeInput(rawInput);
-  input.platform = platform;
+  // An adapter may have re-attributed the platform during normalization
+  // (e.g. claude-code delegating VS Code Copilot payloads to the vscode
+  // adapter); only fill it in when the adapter didn't.
+  input.platform = input.platform ?? platform;
   const result = await handler.execute(input);
 
   // MODEL_CONTEXT: the only stdout JSON emit, via the platform adapter.

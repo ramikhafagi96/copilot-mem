@@ -63,9 +63,12 @@ function extractLastMessageFromGeminiTranscript(
 /**
  * Extract last message from a JSONL transcript.
  *
- * Supports two field conventions for the per-line role marker:
- * - Claude Code:  `{"type":"assistant",...}`
- * - Cursor:       `{"role":"assistant",...}`
+ * Supports three field conventions for the per-line role marker:
+ * - Claude Code:       `{"type":"assistant",...}`
+ * - Cursor:            `{"role":"assistant",...}`
+ * - VS Code Copilot:   `{"type":"assistant.message","data":{"content":...},...}`
+ *   (copilot-agent transcripts; see microsoft/vscode-copilot-chat
+ *   sessionTranscriptService — text lives in `data.content`, not `message`)
  *
  * The most recent assistant turn is often a pure tool_use block with no text
  * content (especially in Cursor, where the agent's last action before the
@@ -94,13 +97,17 @@ export function extractLastMessageFromJsonl(
       continue;
     }
     const lineRole = line.type ?? line.role;
-    if (lineRole !== role) continue;
+    // VS Code Copilot entries use a dotted discriminator ('assistant.message',
+    // 'user.message') and carry the text in data.content. Tool-only turns have
+    // empty content, matching the empty-text fallback semantics below.
+    const isVscodeEntry = lineRole === `${role}.message`;
+    if (lineRole !== role && !isVscodeEntry) continue;
     foundMatchingRole = true;
 
-    if (!line.message?.content) continue;
+    const msgContent = isVscodeEntry ? line.data?.content : line.message?.content;
+    if (!msgContent) continue;
 
     let text = '';
-    const msgContent = line.message.content;
     if (typeof msgContent === 'string') {
       text = msgContent;
     } else if (Array.isArray(msgContent)) {

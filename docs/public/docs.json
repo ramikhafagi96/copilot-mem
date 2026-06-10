@@ -59,6 +59,13 @@
         ]
       },
       {
+        "group": "VS Code Copilot Integration",
+        "icon": "code",
+        "pages": [
+          "vscode-copilot/setup"
+        ]
+      },
+      {
         "group": "Gemini CLI Integration",
         "icon": "terminal",
         "pages": [

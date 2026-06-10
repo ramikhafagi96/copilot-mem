@@ -13,6 +13,18 @@ import { getProjectContext } from '../../utils/project-name.js';
 
 const FILE_READ_GATE_MIN_BYTES = 1_500;
 
+// Canonical tool names whose PreToolUse must never inject file timelines.
+// Only reachable on hosts that ignore hook matchers (VS Code Copilot) — on
+// Claude Code the "Read" matcher already restricts this hook.
+const FILE_CONTEXT_EXCLUDED_TOOLS = new Set([
+  'Write',
+  'Edit',
+  'MultiEdit',
+  'NotebookEdit',
+  'Bash',
+  'TodoWrite',
+]);
+
 const FETCH_LOOKAHEAD_LIMIT = 40;
 
 const DISPLAY_LIMIT = 15;
@@ -143,6 +155,21 @@ export const fileContextHandler: EventHandler = {
       ? (toolInput.filePaths as unknown[]).filter((p): p is string => typeof p === 'string').slice(0, MAX_FILE_CONTEXT_PATHS)
       : [];
     const filePath = toolInput?.file_path as string | undefined;
+
+    // Claude Code applies the PreToolUse "Read" matcher before this hook runs,
+    // but VS Code Copilot parses matchers without applying them, so there the
+    // hook fires for EVERY tool — including edits, whose normalized input also
+    // carries file_path. Suppress mutating/exec tools on the single-file_path
+    // flow only: an explicit filePaths array is adapter-precomputed intent
+    // (Codex/Cursor shell flows) and must be honored regardless of tool name.
+    if (
+      filePaths.length === 0 &&
+      input.toolName &&
+      FILE_CONTEXT_EXCLUDED_TOOLS.has(input.toolName)
+    ) {
+      return { continue: true, suppressOutput: true };
+    }
+
     const candidatePaths = filePaths.length > 0 ? filePaths : (filePath ? [filePath] : []);
 
     if (candidatePaths.length === 0) {

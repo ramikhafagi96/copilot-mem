@@ -1,5 +1,6 @@
 import type { PlatformAdapter, NormalizedHookInput, HookResult } from '../types.js';
 import { AdapterRejectedInput, isValidCwd } from './errors.js';
+import { isVscodeHookPayload, vscodeAdapter } from './vscode.js';
 
 const MAX_AGENT_FIELD_LEN = 128;
 const pickAgentField = (v: unknown): string | undefined =>
@@ -7,6 +8,14 @@ const pickAgentField = (v: unknown): string | undefined =>
 
 export const claudeCodeAdapter: PlatformAdapter = {
   normalizeInput(raw) {
+    // The plugin's hooks.json is shared between Claude Code and VS Code
+    // Copilot (VS Code loads Claude-format plugins and runs the same hook
+    // commands), so VS Code payloads arrive on this platform path. Delegate
+    // when the payload shape is VS Code's — Claude Code never emits those
+    // tool names or transcript paths.
+    if (isVscodeHookPayload(raw)) {
+      return vscodeAdapter.normalizeInput(raw);
+    }
     const r = (raw ?? {}) as any;
     const cwd = r.cwd ?? process.cwd();
     if (!isValidCwd(cwd)) {

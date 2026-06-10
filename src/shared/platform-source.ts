@@ -13,6 +13,9 @@ export function normalizePlatformSource(value?: string | null): string {
   if (source === 'transcript') return 'codex';
   if (source.includes('codex')) return 'codex';
   if (source.includes('cursor')) return 'cursor';
+  // Before the 'claude' check: VS Code Copilot sessions can arrive labeled
+  // 'vscode-copilot' or similar, and must not fall through to other buckets.
+  if (source.includes('vscode') || source.includes('copilot')) return 'vscode';
   if (source.includes('claude')) return 'claude';
 
   return source;
