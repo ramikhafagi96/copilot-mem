@@ -3,7 +3,7 @@
 // Phase 7 — pure planning logic for the server runtime install/uninstall paths
 // (#2543, #2568).
 //
-// The actual side effects of `claude-mem install --runtime server` (bringing up
+// The actual side effects of `copilot-mem install --runtime server` (bringing up
 // the Docker stack, generating an API key against a live database, injecting an
 // IDE MCP config) cannot run in a unit-test sandbox. To keep the decision logic
 // honest and covered, the *planning* — argument resolution, which steps run,
@@ -78,7 +78,7 @@ export interface ServerRuntimeMcpConfig {
 }
 
 /**
- * Build the deterministic plan for `claude-mem install --runtime server`.
+ * Build the deterministic plan for `copilot-mem install --runtime server`.
  *
  * This is the unit-testable core of #2543. It never touches the worker-only
  * install path: it only describes the server-runtime steps. The caller is
@@ -96,7 +96,7 @@ export function planServerRuntimeInstall(inputs: ServerRuntimeInstallInputs): Se
   if (!inputs.hasDatabaseUrl) {
     notes.push(
       'CLAUDE_MEM_SERVER_DATABASE_URL is not set; skipping API key generation. '
-        + 'Run `npx claude-mem server keys rotate` after Postgres is reachable to provision a hook key.',
+        + 'Run `npx copilot-mem server keys rotate` after Postgres is reachable to provision a hook key.',
     );
   }
 
@@ -159,7 +159,7 @@ export const SERVER_RUNTIME_SETTINGS_KEYS: readonly string[] = Object.freeze([
 ]);
 
 /**
- * Decide what `claude-mem uninstall` must do for the server runtime (#2568).
+ * Decide what `copilot-mem uninstall` must do for the server runtime (#2568).
  *
  * The worker uninstall path is unchanged: when the selected runtime is `worker`
  * this returns `isServerRuntime: false` and no server teardown steps. Only when

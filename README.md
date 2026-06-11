@@ -1,221 +1,76 @@
-<h1 align="center">
-  <br>
-  <a href="https://github.com/thedotmack/claude-mem">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/claude-mem-logo-for-dark-mode.webp">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/claude-mem-logo-for-light-mode.webp">
-      <img src="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/claude-mem-logo-for-light-mode.webp" alt="Claude-Mem" width="400">
-    </picture>
-  </a>
-  <br>
-</h1>
+<h1 align="center">Copilot-Mem</h1>
 
-<p align="center">
-  <a href="docs/i18n/README.zh.md">🇨🇳 中文</a> •
-  <a href="docs/i18n/README.zh-tw.md">🇹🇼 繁體中文</a> •
-  <a href="docs/i18n/README.ja.md">🇯🇵 日本語</a> •
-  <a href="docs/i18n/README.pt.md">🇵🇹 Português</a> •
-  <a href="docs/i18n/README.pt-br.md">🇧🇷 Português</a> •
-  <a href="docs/i18n/README.ko.md">🇰🇷 한국어</a> •
-  <a href="docs/i18n/README.es.md">🇪🇸 Español</a> •
-  <a href="docs/i18n/README.de.md">🇩🇪 Deutsch</a> •
-  <a href="docs/i18n/README.fr.md">🇫🇷 Français</a> •
-  <a href="docs/i18n/README.he.md">🇮🇱 עברית</a> •
-  <a href="docs/i18n/README.ar.md">🇸🇦 العربية</a> •
-  <a href="docs/i18n/README.ru.md">🇷🇺 Русский</a> •
-  <a href="docs/i18n/README.pl.md">🇵🇱 Polski</a> •
-  <a href="docs/i18n/README.cs.md">🇨🇿 Čeština</a> •
-  <a href="docs/i18n/README.nl.md">🇳🇱 Nederlands</a> •
-  <a href="docs/i18n/README.tr.md">🇹🇷 Türkçe</a> •
-  <a href="docs/i18n/README.uk.md">🇺🇦 Українська</a> •
-  <a href="docs/i18n/README.vi.md">🇻🇳 Tiếng Việt</a> •
-  <a href="docs/i18n/README.tl.md">🇵🇭 Tagalog</a> •
-  <a href="docs/i18n/README.id.md">🇮🇩 Indonesia</a> •
-  <a href="docs/i18n/README.th.md">🇹🇭 ไทย</a> •
-  <a href="docs/i18n/README.hi.md">🇮🇳 हिन्दी</a> •
-  <a href="docs/i18n/README.bn.md">🇧🇩 বাংলা</a> •
-  <a href="docs/i18n/README.ur.md">🇵🇰 اردو</a> •
-  <a href="docs/i18n/README.ro.md">🇷🇴 Română</a> •
-  <a href="docs/i18n/README.sv.md">🇸🇪 Svenska</a> •
-  <a href="docs/i18n/README.it.md">🇮🇹 Italiano</a> •
-  <a href="docs/i18n/README.el.md">🇬🇷 Ελληνικά</a> •
-  <a href="docs/i18n/README.hu.md">🇭🇺 Magyar</a> •
-  <a href="docs/i18n/README.fi.md">🇫🇮 Suomi</a> •
-  <a href="docs/i18n/README.da.md">🇩🇰 Dansk</a> •
-  <a href="docs/i18n/README.no.md">🇳🇴 Norsk</a>
-</p>
-
-<h4 align="center">Persistent memory compression system built for <a href="https://claude.com/claude-code" target="_blank">Claude Code</a>.</h4>
+<h4 align="center">Persistent memory for <a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a> agent sessions in VS Code.</h4>
 
 <p align="center">
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   </a>
   <a href="package.json">
-    <img src="https://img.shields.io/badge/version-13.4.0-green.svg" alt="Version">
+    <img src="https://img.shields.io/badge/version-13.5.5-green.svg" alt="Version">
   </a>
   <a href="package.json">
     <img src="https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg" alt="Node">
   </a>
-  <a href="https://github.com/thedotmack/awesome-claude-code">
-    <img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Claude Code">
-  </a>
 </p>
-
-<p align="center">
-  <a href="https://trendshift.io/repositories/15496" target="_blank">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge.svg">
-      <img src="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/trendshift-badge.svg" alt="thedotmack/claude-mem | Trendshift" width="250" height="55"/>
-    </picture>
-  </a>
-</p>
-
-<br>
-
-<table align="center">
-  <tr>
-    <td align="center">
-      <a href="https://github.com/thedotmack/claude-mem">
-        <picture>
-          <img
-            src="https://raw.githubusercontent.com/thedotmack/claude-mem/main/docs/public/cm-preview.gif"
-            alt="Claude-Mem Preview"
-            width="500"
-          >
-        </picture>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://www.star-history.com/#thedotmack/claude-mem&Date">
-        <picture>
-          <source
-            media="(prefers-color-scheme: dark)"
-            srcset="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&theme=dark&legend=top-left"
-          />
-          <source
-            media="(prefers-color-scheme: light)"
-            srcset="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&legend=top-left"
-          />
-          <img
-            alt="Star History Chart"
-            src="https://api.star-history.com/image?repos=thedotmack/claude-mem&type=date&legend=top-left"
-            width="500"
-          />
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
 
 <p align="center">
   <a href="#quick-start">Quick Start</a> •
   <a href="#how-it-works">How It Works</a> •
   <a href="#mcp-search-tools">Search Tools</a> •
-  <a href="#documentation">Documentation</a> •
   <a href="#configuration">Configuration</a> •
   <a href="#troubleshooting">Troubleshooting</a> •
   <a href="#license">License</a>
 </p>
 
 <p align="center">
-  Claude-Mem seamlessly preserves context across sessions by automatically capturing tool usage observations, generating semantic summaries, and making them available to future sessions. This enables Claude to maintain continuity of knowledge about projects even after sessions end or reconnect.
+  Copilot agent mode starts every session from scratch. Copilot-Mem changes that: it automatically captures tool-usage observations during your agent sessions, compresses them into semantic summaries, and injects the relevant context back into future sessions — so Copilot remembers your project even after the session ends.
 </p>
 
 ---
 
 ## Quick Start
 
-Install with a single command:
+Install as an agent plugin in VS Code:
 
-```bash
-**npx claude-mem install**
+1. Open the Command Palette (`Cmd/Ctrl+Shift+P`)
+2. Run **Chat: Install Plugin From Source**
+3. Enter the repository URL:
+
+```
+https://github.com/ramikhafagi96/copilot-mem
 ```
 
-Or install for Gemini CLI (auto-detects `~/.gemini`):
+VS Code clones the repository, detects the plugin, and loads its lifecycle hooks, skills, and MCP search server.
+
+Alternatively, install through the GitHub Copilot CLI (plugins under `~/.copilot/installed-plugins/` are discovered by VS Code automatically):
 
 ```bash
-npx claude-mem install --ide gemini-cli
-```
-Or install for OpenCode:
-
-```bash
-npx claude-mem install --ide opencode
+copilot plugin install ramikhafagi96/copilot-mem
 ```
 
-Or install from the plugin marketplace inside Claude Code:
+Or add the repository as a plugin marketplace in your VS Code settings and install **copilot-mem** from the Extensions sidebar (filter with `@agentPlugins`):
 
-```bash
-/plugin marketplace add thedotmack/claude-mem
-
-/plugin install claude-mem
+```json
+{
+  "chat.pluginMarketplaces": ["ramikhafagi96/copilot-mem"]
+}
 ```
 
-Or install for GitHub Copilot in VS Code — run **Chat: Install Plugin From Source** from the Command Palette and enter `https://github.com/thedotmack/claude-mem` (VS Code's agent plugin system loads the plugin's hooks and MCP server directly; see the [VS Code Copilot guide](https://docs.claude-mem.ai/vscode-copilot/setup)).
+Start a new Copilot agent session — from the second session onward, relevant context from previous sessions appears automatically.
 
-Restart Claude Code or Gemini CLI. Context from previous sessions will automatically appear in new sessions.
-
-> **Note:** Claude-Mem is also published on npm, but `npm install -g claude-mem` installs the **SDK/library only** — it does not register the plugin hooks or set up the worker service. Always install via `npx claude-mem install` or the `/plugin` commands above.
-
-### 🦞 OpenClaw Gateway
-
-Install claude-mem as a persistent memory plugin on [OpenClaw](https://openclaw.ai) gateways with a single command:
-
-```bash
-curl -fsSL https://install.cmem.ai/openclaw.sh | bash
-```
-
-The installer handles dependencies, plugin setup, AI provider configuration, worker startup, and optional real-time observation feeds to Telegram, Discord, Slack, and more. See the [OpenClaw Integration Guide](https://docs.claude-mem.ai/openclaw-integration) for details.
+See the [VS Code Copilot setup guide](docs/public/vscode-copilot/setup.mdx) for prerequisites, verification steps, and troubleshooting.
 
 **Key Features:**
 
-- 🧠 **Persistent Memory** - **Context survives across sessions**
-- 📊 **Progressive Disclosure** - **Layered memory retrieval** with token cost visibility
-- 🔍 **Skill-Based Search** - **Query your project history** with mem-search skill
-- 🖥️ **Web Viewer UI** - **Real-time memory stream** at http://localhost:37777
-- 💻 **Claude Desktop Skill** - Search memory from Claude Desktop conversations
+- 🧠 **Persistent Memory** - Context survives across Copilot agent sessions
+- 📊 **Progressive Disclosure** - Layered memory retrieval with token cost visibility
+- 🔍 **Skill-Based Search** - Query your project history with the mem-search skill
+- 🖥️ **Web Viewer UI** - Real-time memory stream at http://localhost:37777
 - 🔒 **Privacy Control** - Use `<private>` tags to exclude sensitive content from storage
 - ⚙️ **Context Configuration** - Fine-grained control over what context gets injected
 - 🤖 **Automatic Operation** - No manual intervention required
-- 🔗 **Citations** - Reference past observations with IDs (access via http://localhost:37777/api/observation/{id} or view all in the web viewer at http://localhost:37777)
-- 🧪 **Beta Channel** - Try experimental features like Endless Mode via version switching
-
----
-
-## Documentation
-
-📚 **[View Full Documentation](https://docs.claude-mem.ai/)** - Browse on official website
-
-### Getting Started
-
-- **[Installation Guide](https://docs.claude-mem.ai/installation)** - Quick start & advanced installation
-- **[Gemini CLI Setup](https://docs.claude-mem.ai/gemini-cli/setup)** - Dedicated guide for Google's Gemini CLI integration
-- **[VS Code Copilot Setup](https://docs.claude-mem.ai/vscode-copilot/setup)** - Persistent memory for GitHub Copilot agent sessions in VS Code
-- **[Usage Guide](https://docs.claude-mem.ai/usage/getting-started)** - How Claude-Mem works automatically
-- **[Search Tools](https://docs.claude-mem.ai/usage/search-tools)** - Query your project history with natural language
-- **[Beta Features](https://docs.claude-mem.ai/beta-features)** - Try experimental features like Endless Mode
-
-### Best Practices
-
-- **[Context Engineering](https://docs.claude-mem.ai/context-engineering)** - AI agent context optimization principles
-- **[Progressive Disclosure](https://docs.claude-mem.ai/progressive-disclosure)** - Philosophy behind Claude-Mem's context priming strategy
-
-### Architecture
-
-- **[Overview](https://docs.claude-mem.ai/architecture/overview)** - System components & data flow
-- **[Architecture Evolution](https://docs.claude-mem.ai/architecture-evolution)** - The journey from v3 to v5
-- **[Hooks Architecture](https://docs.claude-mem.ai/hooks-architecture)** - How Claude-Mem uses lifecycle hooks
-- **[Hooks Reference](https://docs.claude-mem.ai/architecture/hooks)** - 7 hook scripts explained
-- **[Worker Service](https://docs.claude-mem.ai/architecture/worker-service)** - HTTP API & Bun management
-- **[Database](https://docs.claude-mem.ai/architecture/database)** - SQLite schema & FTS5 search
-- **[Search Architecture](https://docs.claude-mem.ai/architecture/search-architecture)** - Hybrid search with Chroma vector database
-
-### Configuration & Development
-
-- **[Configuration](https://docs.claude-mem.ai/configuration)** - Environment variables & settings
-- **[Development](https://docs.claude-mem.ai/development)** - Building, testing, contributing
-- **[Troubleshooting](https://docs.claude-mem.ai/troubleshooting)** - Common issues & solutions
+- 🔗 **Citations** - Reference past observations with IDs (access via http://localhost:37777/api/observation/{id} or view all in the web viewer)
 
 ---
 
@@ -223,73 +78,39 @@ The installer handles dependencies, plugin setup, AI provider configuration, wor
 
 **Core Components:**
 
-1. **5 Lifecycle Hooks** - SessionStart, UserPromptSubmit, PostToolUse, Stop, SessionEnd (6 hook scripts)
+1. **Lifecycle Hooks** - SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop — run by VS Code's agent plugin system on every Copilot agent session
 2. **Smart Install** - Cached dependency checker (pre-hook script, not a lifecycle hook)
-3. **Worker Service** - HTTP API on port 37777 with web viewer UI and 10 search endpoints, managed by Bun
+3. **Worker Service** - HTTP API on port 37777 with web viewer UI and search endpoints, managed by Bun
 4. **SQLite Database** - Stores sessions, observations, summaries
 5. **mem-search Skill** - Natural language queries with progressive disclosure
 6. **Chroma Vector Database** - Hybrid semantic + keyword search for intelligent context retrieval
 
-See [Architecture Overview](https://docs.claude-mem.ai/architecture/overview) for details.
+Copilot-Mem normalizes Copilot's tool names (`read_file`, `replace_string_in_file`, `run_in_terminal`, …) into a canonical observation format, compresses observations into semantic summaries in the background, and injects the most relevant memory at the start of each new session. Per-file history timelines are injected ahead of large file reads, and session summaries are generated when a session stops.
 
 ---
 
 ## MCP Search Tools
 
-Claude-Mem provides intelligent memory search through **4 MCP tools** following a token-efficient **3-layer workflow pattern**:
+Copilot-Mem provides intelligent memory search through MCP tools following a token-efficient **3-layer workflow pattern**:
 
-**The 3-Layer Workflow:**
+1. **`search`** - Get a compact index with IDs (~50-100 tokens/result) — full-text queries, filters by type/date/project
+2. **`timeline`** - Get chronological context around interesting results
+3. **`get_observations`** - Fetch full details ONLY for filtered IDs (~500-1,000 tokens/result; always batch multiple IDs)
 
-1. **`search`** - **Get compact index with IDs** (~50-100 tokens/result)
-2. **`timeline`** - **Get chronological context** around interesting results
-3. **`get_observations`** - **Fetch full details ONLY for filtered IDs** (~500-1,000 tokens/result)
+Start with `search` to get an index, use `timeline` to see what was happening around specific observations, then fetch full details only for the IDs that matter — roughly **10x token savings** compared to fetching everything up front.
 
-**How It Works:**
-- Claude uses MCP tools to search your memory
-- **Start with `search`** to get an index of results
-- **Use `timeline`** to see what was happening around specific observations
-- **Use `get_observations`** to fetch full details for relevant IDs
-- **~10x token savings** by filtering before fetching details
-
-**Available MCP Tools:**
-
-1. **`search`** - Search memory index with full-text queries, filters by type/date/project
-2. **`timeline`** - Get chronological context around a specific observation or query
-3. **`get_observations`** - Fetch full observation details by IDs (always batch multiple IDs)
-
-**Example Usage:**
-
-```typescript
-// Step 1: Search for index
-search(query="authentication bug", type="bugfix", limit=10)
-
-// Step 2: Review index, identify relevant IDs (e.g., #123, #456)
-
-// Step 3: Fetch full details
-get_observations(ids=[123, 456])
-```
-
-See [Search Tools Guide](https://docs.claude-mem.ai/usage/search-tools) for detailed examples.
-
----
-
-## Beta Features
-
-Claude-Mem offers a **beta channel** with experimental features like **Endless Mode** (biomimetic memory architecture for extended sessions). Switch between stable and beta versions from the web viewer UI at http://localhost:37777 → Settings.
-
-See **[Beta Features Documentation](https://docs.claude-mem.ai/beta-features)** for details on Endless Mode and how to try it.
+The bundled MCP server registers these tools in Copilot agent mode automatically — just ask Copilot about past work ("what did we decide about the auth flow last week?") and it will search your memory.
 
 ---
 
 ## System Requirements
 
-- **Node.js**: **20.0.0 or higher**
-- **Claude Code**: **Latest version** with plugin support
-- **Bun**: JavaScript runtime and process manager **(auto-installed if missing)**
-- **uv**: Python package manager for vector search **(auto-installed if missing)**
+- **VS Code** with GitHub Copilot Chat and agent mode (agent plugins enabled — `chat.pluginsEnabled`, on by default in recent VS Code)
+- **Node.js**: 20.0.0 or higher
+- **Bun**: JavaScript runtime and process manager (auto-installed if missing)
+- **uv**: Python package manager for vector search (auto-installed if missing)
 - **SQLite 3**: For persistent storage (bundled)
 
----
 ### Windows Setup Notes
 
 If you see an error like:
@@ -306,17 +127,15 @@ Make sure Node.js and npm are installed and added to your PATH. Download the lat
 
 Settings are managed in `~/.claude-mem/settings.json` (auto-created with defaults on first run). Configure AI model, worker port, data directory, log level, and context injection settings.
 
-See the **[Configuration Guide](https://docs.claude-mem.ai/configuration)** for all available settings and examples.
+See the [configuration guide](docs/public/configuration.mdx) for all available settings and examples.
 
 ### Mode & Language Configuration
 
-Claude-Mem supports multiple workflow modes and languages via the `CLAUDE_MEM_MODE` setting.
+Copilot-Mem supports multiple workflow modes and languages via the `CLAUDE_MEM_MODE` setting.
 
 This option controls both:
 - The workflow behavior (e.g. code, chill, investigation)
 - The language used in generated observations
-
-#### How to Configure
 
 Edit your settings file at `~/.claude-mem/settings.json`:
 
@@ -326,13 +145,7 @@ Edit your settings file at `~/.claude-mem/settings.json`:
 }
 ```
 
-Modes are defined in `plugin/modes/`. To see all available modes locally:
-
-```bash
-ls ~/.claude/plugins/marketplaces/thedotmack/plugin/modes/
-```
-
-#### Available Modes
+Modes are defined in `plugin/modes/`. Language-specific modes follow the pattern `code--[lang]` where `[lang]` is the ISO 639-1 language code (e.g., `zh` for Chinese, `ja` for Japanese, `es` for Spanish).
 
 | Mode | Description |
 |------------|-------------------------|
@@ -340,37 +153,43 @@ ls ~/.claude/plugins/marketplaces/thedotmack/plugin/modes/
 | `code--zh` | Simplified Chinese mode |
 | `code--ja` | Japanese mode |
 
-Language-specific modes follow the pattern `code--[lang]` where `[lang]` is the ISO 639-1 language code (e.g., `zh` for Chinese, `ja` for Japanese, `es` for Spanish).
+Restart VS Code after changing the mode to apply the new configuration.
 
-> Note: `code--zh` (Simplified Chinese) is already built-in — no additional installation or plugin update is required.
-
-#### After Changing Mode
-
-Restart Claude Code to apply the new mode configuration.
 ---
 
-## Development
+## Worker Management
 
-See the **[Development Guide](https://docs.claude-mem.ai/development)** for build instructions, testing, and contribution workflow.
+Hooks start the worker automatically, but you can manage it manually:
+
+```bash
+npx copilot-mem status   # check worker status
+npx copilot-mem start    # start the worker
+npx copilot-mem logs     # inspect worker logs
+```
 
 ---
 
 ## Troubleshooting
 
-If experiencing issues, describe the problem to Claude and the troubleshoot skill will automatically diagnose and provide fixes.
+**Hooks don't fire:** Confirm the plugin appears under the agent plugins view and is enabled, and check the **Output → Chat Hooks** channel in VS Code for errors.
 
-See the **[Troubleshooting Guide](https://docs.claude-mem.ai/troubleshooting)** for common issues and solutions.
+**No context injected:** Context appears from the second session onward — the first session only captures observations.
+
+**Worker not running:** Start it manually with `npx copilot-mem start` and inspect logs with `npx copilot-mem logs`.
+
+See the [troubleshooting guide](docs/public/troubleshooting.mdx) for more.
 
 ---
 
-## Bug Reports
-
-Create comprehensive bug reports with the automated generator:
+## Development
 
 ```bash
-cd ~/.claude/plugins/marketplaces/thedotmack
-npm run bug-report
+npm install
+npm run build           # build hooks and plugin manifests
+bun test                # run tests
 ```
+
+---
 
 ## Contributing
 
@@ -382,21 +201,11 @@ Contributions are welcome! Please:
 4. Update documentation
 5. Submit a Pull Request
 
-See [Development Guide](https://docs.claude-mem.ai/development) for contribution workflow.
-
 ---
 
 ## License
 
-Claude-Mem is licensed under the Apache License 2.0.
-
-We chose Apache-2.0 because durable agentic memory should be easy to embed in
-developer tools, local agents, MCP servers, enterprise systems, robotics stacks,
-and production agent harnesses.
-
-See the [LICENSE](LICENSE) file for full details. See [docs/license.md](docs/license.md)
-and [docs/ip-boundary.md](docs/ip-boundary.md) for licensing scope and the
-open/commercial boundary.
+Copilot-Mem is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) and [NOTICE](NOTICE) files for full details and attributions.
 
 **Note on Ragtime**: The `ragtime/` directory is licensed under the **Apache License 2.0**. See [ragtime/LICENSE](ragtime/LICENSE) for details.
 
@@ -404,19 +213,5 @@ open/commercial boundary.
 
 ## Support
 
-- **Documentation**: [docs/](docs/)
-- **Issues**: [GitHub Issues](https://github.com/thedotmack/claude-mem/issues)
-- **Repository**: [github.com/thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)
-- **Official X Account**: [@Claude_Memory](https://x.com/Claude_Memory)
-- **Official Discord**: [Join Discord](https://discord.com/invite/J4wttp9vDu)
-- **Author**: Alex Newman ([@thedotmack](https://github.com/thedotmack))
-
----
-
-**Built with Claude Agent SDK** | **Works with Claude Code** | **Made with TypeScript**
-
----
-
-### What About $CMEM?
-
-$CMEM is a solana token created by a 3rd party without Claude-Mem's prior consent, but officially embraced by the creator of Claude-Mem (Alex Newman, @thedotmack). The token acts as a community catalyst for growth and a vehicle for bringing real-time agent data to the developers and knowledge workers that need it most. $CMEM: 2TsmuYUrsctE57VLckZBYEEzdokUF8j8e1GavekWBAGS
+- **Issues**: [GitHub Issues](https://github.com/ramikhafagi96/copilot-mem/issues)
+- **Repository**: [github.com/ramikhafagi96/copilot-mem](https://github.com/ramikhafagi96/copilot-mem)

@@ -1,6 +1,6 @@
-# Claude-Mem: AI Development Instructions
+# Copilot-Mem: AI Development Instructions
 
-Claude-mem is a Claude Code plugin providing persistent memory across sessions. It captures tool usage, compresses observations using the Claude Agent SDK, and injects relevant context into future sessions.
+Copilot-mem is an agent plugin providing persistent memory for GitHub Copilot agent sessions in VS Code. It captures tool usage, compresses observations using the Claude Agent SDK, and injects relevant context into future sessions.
 
 ## Build
 
@@ -12,7 +12,7 @@ npm run build-and-sync        # Build, sync to marketplace, restart worker
 
 - **Source**: `<project-root>/src/`
 - **Built Plugin**: `<project-root>/plugin/`
-- **Installed Plugin**: `~/.claude/plugins/marketplaces/thedotmack/`
+- **Installed Plugin**: `~/.claude/plugins/marketplaces/ramikhafagi96/`
 - **Database**: `~/.claude-mem/claude-mem.db`
 - **Chroma**: `~/.claude-mem/chroma/`
 
@@ -24,9 +24,7 @@ npm run build-and-sync        # Build, sync to marketplace, restart worker
 
 ## Documentation
 
-**Public Docs**: https://docs.claude-mem.ai (Mintlify)
-**Source**: `docs/public/` - MDX files, edit `docs.json` for navigation
-**Deploy**: Auto-deploys from GitHub on push to main
+**Source**: `docs/public/` - MDX files (Mintlify), edit `docs.json` for navigation
 
 ## Important
 

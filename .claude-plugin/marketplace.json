@@ -1,17 +1,17 @@
 {
-  "name": "thedotmack",
+  "name": "ramikhafagi96",
   "owner": {
-    "name": "Alex Newman"
+    "name": "Rami Khafagi"
   },
   "metadata": {
-    "description": "Plugins by Alex Newman (thedotmack)"
+    "description": "Plugins by Rami Khafagi (ramikhafagi96)"
   },
   "plugins": [
     {
-      "name": "claude-mem",
+      "name": "copilot-mem",
       "version": "13.5.5",
       "source": "./plugin",
-      "description": "Persistent memory system for Claude Code - context compression across sessions"
+      "description": "Persistent memory for GitHub Copilot in VS Code - context compression across agent sessions"
     }
   ]
 }

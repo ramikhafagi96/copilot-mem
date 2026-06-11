@@ -1,11 +1,11 @@
 {
-  "name": "claude-mem-local",
+  "name": "copilot-mem-local",
   "interface": {
-    "displayName": "claude-mem (local)"
+    "displayName": "copilot-mem (local)"
   },
   "plugins": [
     {
-      "name": "claude-mem",
+      "name": "copilot-mem",
       "source": {
         "source": "local",
         "path": "./plugin"

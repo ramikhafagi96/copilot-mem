@@ -68,11 +68,11 @@ function shellTemplateManifest(buildShellCommand) {
   ];
   const claudeHook = (tail, extra = {}) => buildShellCommand({
     host: 'claude-code', requireFile: 'bun-runner.js', requireFileSecondary: 'worker-service.cjs',
-    trailingCommand: ccTrailing(...tail), notFoundMessage: 'claude-mem: plugin scripts not found', ...extra,
+    trailingCommand: ccTrailing(...tail), notFoundMessage: 'copilot-mem: plugin scripts not found', ...extra,
   });
   const codexHook = (tail) => buildShellCommand({
     host: 'codex-cli', requireFile: 'bun-runner.js', requireFileSecondary: 'worker-service.cjs',
-    trailingCommand: ccTrailing(...tail), notFoundMessage: 'claude-mem: plugin scripts not found',
+    trailingCommand: ccTrailing(...tail), notFoundMessage: 'copilot-mem: plugin scripts not found',
   });
 
   return {
@@ -82,7 +82,7 @@ function shellTemplateManifest(buildShellCommand) {
         'Setup.0.0': buildShellCommand({
           host: 'claude-code-setup', requireFile: 'version-check.js',
           trailingCommand: ['node', '"$_P/scripts/version-check.js"'],
-          notFoundMessage: 'claude-mem: version-check.js not found',
+          notFoundMessage: 'copilot-mem: version-check.js not found',
         }),
         'SessionStart.0.0': claudeHook(['start'], { trailingJson: { continue: true, suppressOutput: true } }),
         'SessionStart.0.1': claudeHook(['hook', 'claude-code', 'context']),
@@ -98,7 +98,7 @@ function shellTemplateManifest(buildShellCommand) {
         'SessionStart.0.0': buildShellCommand({
           host: 'codex-cli', requireFile: 'version-check.js', extraEnv: { CLAUDE_MEM_CODEX_HOOK: '1' },
           trailingCommand: ['node', '"$_P/scripts/version-check.js"'],
-          notFoundMessage: 'claude-mem: version-check.js not found',
+          notFoundMessage: 'copilot-mem: version-check.js not found',
         }),
         'SessionStart.0.1': codexHook(['start']),
         'SessionStart.0.2': codexHook(['hook', 'codex', 'context']),
@@ -114,11 +114,11 @@ function shellTemplateManifest(buildShellCommand) {
         // The mcp Node launcher derives its spawn target from requireFile, so
         // no trailingCommand is needed (it is ignored for this host).
         host: 'mcp', requireFile: 'mcp-server.cjs',
-        notFoundMessage: 'claude-mem: mcp server not found',
+        notFoundMessage: 'copilot-mem: mcp server not found',
         mcpExtraCandidates: ['$PWD/plugin', '$PWD'],
         mcpExtraCacheRoots: [
-          '$HOME/.codex/plugins/cache/claude-mem-local/claude-mem',
-          '$HOME/.codex/plugins/cache/thedotmack/claude-mem',
+          '$HOME/.codex/plugins/cache/copilot-mem-local/copilot-mem',
+          '$HOME/.codex/plugins/cache/ramikhafagi96/copilot-mem',
         ],
       }),
     },
@@ -640,16 +640,16 @@ async function buildHooks() {
       }
     }
     const codexMarketplace = JSON.parse(fs.readFileSync('.agents/plugins/marketplace.json', 'utf-8'));
-    const claudeMemMarketplaceEntry = (codexMarketplace.plugins ?? []).find((plugin) => plugin.name === 'claude-mem');
+    const claudeMemMarketplaceEntry = (codexMarketplace.plugins ?? []).find((plugin) => plugin.name === 'copilot-mem');
     if (claudeMemMarketplaceEntry?.source?.path !== './plugin') {
-      throw new Error('.agents/plugins/marketplace.json must point claude-mem source.path at ./plugin so Codex loads the bundled plugin root');
+      throw new Error('.agents/plugins/marketplace.json must point copilot-mem source.path at ./plugin so Codex loads the bundled plugin root');
     }
     const bundledMcp = JSON.parse(fs.readFileSync('plugin/.mcp.json', 'utf-8'));
     const mcpSearchCommand = bundledMcp.mcpServers?.['mcp-search']?.args?.join(' ') ?? '';
-    if (!mcpSearchCommand.includes('.codex/plugins/cache/claude-mem-local/claude-mem')) {
+    if (!mcpSearchCommand.includes('.codex/plugins/cache/copilot-mem-local/copilot-mem')) {
       throw new Error('plugin/.mcp.json mcp-search launcher must include Codex cache fallback for hosts that do not inject PLUGIN_ROOT');
     }
-    if (!mcpSearchCommand.includes('plugins/cache/thedotmack/claude-mem')) {
+    if (!mcpSearchCommand.includes('plugins/cache/ramikhafagi96/copilot-mem')) {
       throw new Error('plugin/.mcp.json mcp-search launcher must include Claude cache fallback for hosts that do not inject PLUGIN_ROOT');
     }
     console.log('✓ All required distribution files present');

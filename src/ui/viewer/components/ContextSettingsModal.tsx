@@ -438,9 +438,9 @@ export function ContextSettingsModal({
                   >
                     <input
                       type="text"
-                      value={formState.CLAUDE_MEM_OPENROUTER_APP_NAME || 'claude-mem'}
+                      value={formState.CLAUDE_MEM_OPENROUTER_APP_NAME || 'copilot-mem'}
                       onChange={(e) => updateSetting('CLAUDE_MEM_OPENROUTER_APP_NAME', e.target.value)}
-                      placeholder="claude-mem"
+                      placeholder="copilot-mem"
                     />
                   </FormField>
                 </>

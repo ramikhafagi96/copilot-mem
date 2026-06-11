@@ -89,9 +89,9 @@ describe('Plugin Distribution - Codex Marketplace', () => {
     const mcp = JSON.parse(readFileSync(mcpPath, 'utf-8'));
     const command = mcp.mcpServers['mcp-search'].args.join(' ');
 
-    expect(command).toContain('.codex/plugins/cache/claude-mem-local/claude-mem');
-    expect(command).toContain('plugins/cache/thedotmack/claude-mem');
-    expect(command).toContain('claude-mem: mcp server not found');
+    expect(command).toContain('.codex/plugins/cache/copilot-mem-local/copilot-mem');
+    expect(command).toContain('plugins/cache/ramikhafagi96/copilot-mem');
+    expect(command).toContain('copilot-mem: mcp server not found');
   });
 });
 
@@ -110,7 +110,7 @@ describe('Plugin Distribution - hooks.json Integrity', () => {
   });
 
   it('should include CLAUDE_PLUGIN_ROOT fallback in all hook commands (#1215)', () => {
-    const expectedFallbackPath = '$_C/plugins/marketplaces/thedotmack/plugin';
+    const expectedFallbackPath = '$_C/plugins/marketplaces/ramikhafagi96/plugin';
 
     for (const command of commandHooksFrom('plugin/hooks/hooks.json')) {
       expect(command).toContain(expectedFallbackPath);
@@ -118,8 +118,8 @@ describe('Plugin Distribution - hooks.json Integrity', () => {
   });
 
   it('should try cache path before marketplaces fallback in all hook commands (#1533)', () => {
-    const cachePath = '$_C/plugins/cache/thedotmack/claude-mem';
-    const marketplacesPath = '$_C/plugins/marketplaces/thedotmack/plugin';
+    const cachePath = '$_C/plugins/cache/ramikhafagi96/copilot-mem';
+    const marketplacesPath = '$_C/plugins/marketplaces/ramikhafagi96/plugin';
 
     for (const command of commandHooksFrom('plugin/hooks/hooks.json')) {
       expect(command).toContain(cachePath);
@@ -139,13 +139,13 @@ describe('Plugin Distribution - Startup Root Resolution', () => {
     expect(command).toContain('.claude');
     expect(command).toContain('CLAUDE_PLUGIN_ROOT');
     expect(command).toContain('PLUGIN_ROOT');
-    expect(command).toContain('plugins/marketplaces/thedotmack/plugin');
-    expect(command).toContain('plugins/cache/thedotmack/claude-mem');
+    expect(command).toContain('plugins/marketplaces/ramikhafagi96/plugin');
+    expect(command).toContain('plugins/cache/ramikhafagi96/copilot-mem');
     expect(command).toContain('mcp-server.cjs');
     // No bare absolute "/scripts/..." path leaks through.
     expect(command).not.toContain('"/scripts/mcp-server.cjs"');
-    expect(command.indexOf('plugins/cache/thedotmack/claude-mem')).toBeLessThan(
-      command.indexOf('plugins/marketplaces/thedotmack/plugin')
+    expect(command.indexOf('plugins/cache/ramikhafagi96/copilot-mem')).toBeLessThan(
+      command.indexOf('plugins/marketplaces/ramikhafagi96/plugin')
     );
   });
 
@@ -154,12 +154,12 @@ describe('Plugin Distribution - Startup Root Resolution', () => {
       expect(command).toContain('${CLAUDE_CONFIG_DIR:-$HOME/.claude}');
       expect(command).toContain('export PATH=');
       expect(command).toContain('while IFS= read -r _R');
-      expect(command).toContain('$_C/plugins/marketplaces/thedotmack/plugin');
-      expect(command).toContain('$_C/plugins/cache/thedotmack/claude-mem');
+      expect(command).toContain('$_C/plugins/marketplaces/ramikhafagi96/plugin');
+      expect(command).toContain('$_C/plugins/cache/ramikhafagi96/copilot-mem');
       expect(command).toContain('[ -f "$_Q/scripts/');
       expect(command).toContain('command -v cygpath');
-      expect(command.indexOf('$_C/plugins/cache/thedotmack/claude-mem')).toBeLessThan(
-        command.indexOf('$_C/plugins/marketplaces/thedotmack/plugin')
+      expect(command.indexOf('$_C/plugins/cache/ramikhafagi96/copilot-mem')).toBeLessThan(
+        command.indexOf('$_C/plugins/marketplaces/ramikhafagi96/plugin')
       );
     }
   });
@@ -168,8 +168,8 @@ describe('Plugin Distribution - Startup Root Resolution', () => {
     for (const command of commandHooksFrom('plugin/hooks/hooks.json')) {
       expect(command).toContain('${CLAUDE_CONFIG_DIR:-$HOME/.claude}');
       expect(command).toContain('while IFS= read -r _R');
-      expect(command).toContain('$_C/plugins/marketplaces/thedotmack/plugin');
-      expect(command).toContain('$_C/plugins/cache/thedotmack/claude-mem');
+      expect(command).toContain('$_C/plugins/marketplaces/ramikhafagi96/plugin');
+      expect(command).toContain('$_C/plugins/cache/ramikhafagi96/copilot-mem');
       expect(command).toContain('[ -f "$_Q/scripts/');
       expect(command).not.toContain('$HOME/.claude/plugins/');
     }
@@ -239,11 +239,11 @@ const ccTrailing = (...tail: string[]) => [
 ];
 const claudeHook = (tail: string[], extra: Record<string, unknown> = {}) => buildShellCommand({
   host: 'claude-code', requireFile: 'bun-runner.js', requireFileSecondary: 'worker-service.cjs',
-  trailingCommand: ccTrailing(...tail), notFoundMessage: 'claude-mem: plugin scripts not found', ...extra,
+  trailingCommand: ccTrailing(...tail), notFoundMessage: 'copilot-mem: plugin scripts not found', ...extra,
 });
 const codexHook = (tail: string[]) => buildShellCommand({
   host: 'codex-cli', requireFile: 'bun-runner.js', requireFileSecondary: 'worker-service.cjs',
-  trailingCommand: ccTrailing(...tail), notFoundMessage: 'claude-mem: plugin scripts not found',
+  trailingCommand: ccTrailing(...tail), notFoundMessage: 'copilot-mem: plugin scripts not found',
 });
 
 const RULE_A_EXPECTATIONS: Record<string, Record<string, string>> = {
@@ -251,7 +251,7 @@ const RULE_A_EXPECTATIONS: Record<string, Record<string, string>> = {
     'Setup.0.0': buildShellCommand({
       host: 'claude-code-setup', requireFile: 'version-check.js',
       trailingCommand: ['node', '"$_P/scripts/version-check.js"'],
-      notFoundMessage: 'claude-mem: version-check.js not found',
+      notFoundMessage: 'copilot-mem: version-check.js not found',
     }),
     'SessionStart.0.0': claudeHook(['start'], { trailingJson: { continue: true, suppressOutput: true } }),
     'SessionStart.0.1': claudeHook(['hook', 'claude-code', 'context']),
@@ -264,7 +264,7 @@ const RULE_A_EXPECTATIONS: Record<string, Record<string, string>> = {
     'SessionStart.0.0': buildShellCommand({
       host: 'codex-cli', requireFile: 'version-check.js', extraEnv: { CLAUDE_MEM_CODEX_HOOK: '1' },
       trailingCommand: ['node', '"$_P/scripts/version-check.js"'],
-      notFoundMessage: 'claude-mem: version-check.js not found',
+      notFoundMessage: 'copilot-mem: version-check.js not found',
     }),
     'SessionStart.0.1': codexHook(['start']),
     'SessionStart.0.2': codexHook(['hook', 'codex', 'context']),
@@ -279,11 +279,11 @@ const MCP_EXPECTED = buildShellCommand({
   // The mcp Node launcher derives its spawn target from requireFile; it ignores
   // trailingCommand, so none is passed (see buildMcpNodeLauncher).
   host: 'mcp', requireFile: 'mcp-server.cjs',
-  notFoundMessage: 'claude-mem: mcp server not found',
+  notFoundMessage: 'copilot-mem: mcp server not found',
   mcpExtraCandidates: ['$PWD/plugin', '$PWD'],
   mcpExtraCacheRoots: [
-    '$HOME/.codex/plugins/cache/claude-mem-local/claude-mem',
-    '$HOME/.codex/plugins/cache/thedotmack/claude-mem',
+    '$HOME/.codex/plugins/cache/copilot-mem-local/copilot-mem',
+    '$HOME/.codex/plugins/cache/ramikhafagi96/copilot-mem',
   ],
 });
 
@@ -375,7 +375,7 @@ describe('Spawn-Contract Templating - Rule A shell resolution matrix', () => {
 
   it('resolves _P from the cache directory when CLAUDE_PLUGIN_ROOT is unset', () => {
     const home = mkdtempSync(path.join(tmpdir(), 'cm-home-'));
-    const cacheRoot = path.join(home, '.claude', 'plugins', 'cache', 'thedotmack', 'claude-mem', '99.0.0');
+    const cacheRoot = path.join(home, '.claude', 'plugins', 'cache', 'ramikhafagi96', 'copilot-mem', '99.0.0');
     mkdirSync(path.join(cacheRoot, 'scripts'), { recursive: true });
     writeFileSync(path.join(cacheRoot, 'scripts', 'version-check.js'), '');
     writeFileSync(path.join(cacheRoot, 'scripts', 'bun-runner.js'), '');
@@ -401,7 +401,7 @@ describe('Spawn-Contract Templating - Rule A shell resolution matrix', () => {
         encoding: 'utf-8',
       });
       expect(result.status).not.toBe(0);
-      expect(result.stderr ?? '').toMatch(/claude-mem: .* not found/);
+      expect(result.stderr ?? '').toMatch(/copilot-mem: .* not found/);
     } finally {
       rmSync(home, { recursive: true, force: true });
     }

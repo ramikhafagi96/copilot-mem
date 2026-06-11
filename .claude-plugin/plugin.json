@@ -1,16 +1,16 @@
 {
-  "name": "claude-mem",
+  "name": "copilot-mem",
   "version": "13.5.5",
-  "description": "Memory compression system for Claude Code - persist context across sessions",
+  "description": "Persistent memory for GitHub Copilot in VS Code - persist context across agent sessions",
   "author": {
-    "name": "Alex Newman"
+    "name": "Rami Khafagi"
   },
-  "repository": "https://github.com/thedotmack/claude-mem",
+  "repository": "https://github.com/ramikhafagi96/copilot-mem",
   "license": "Apache-2.0",
   "keywords": [
-    "claude",
-    "claude-code",
-    "claude-agent-sdk",
+    "copilot",
+    "github-copilot",
+    "vscode",
     "mcp",
     "plugin",
     "memory",
@@ -20,5 +20,5 @@
     "typescript",
     "nodejs"
   ],
-  "homepage": "https://github.com/thedotmack/claude-mem#readme"
+  "homepage": "https://github.com/ramikhafagi96/copilot-mem#readme"
 }

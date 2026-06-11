@@ -101,11 +101,11 @@ describe('Install Non-TTY Support', () => {
 
     it('documents the explicit --disable-auto-memory install flag in help output', () => {
       expect(readFileSync(join(__dirname, '..', 'src', 'npx-cli', 'index.ts'), 'utf-8'))
-        .toContain('npx claude-mem install --disable-auto-memory');
+        .toContain('npx copilot-mem install --disable-auto-memory');
     });
 
     it('uses console.log for intro in non-interactive mode', () => {
-      expect(installSource).toContain("console.log('claude-mem install')");
+      expect(installSource).toContain("console.log('copilot-mem install')");
     });
 
     it('uses console.log for note/summary in non-interactive mode', () => {
@@ -172,7 +172,7 @@ describe('Install Non-TTY Support', () => {
         codexInstallerSource.indexOf('export function uninstallCodexCli'),
       );
       expect(codexInstallerSource).toContain("setTomlFeatureEnabled(next, 'hooks', true)");
-      expect(codexInstallerSource).toContain("const CODEX_PLUGIN_ID = `claude-mem@${MARKETPLACE_NAME}`");
+      expect(codexInstallerSource).toContain("const CODEX_PLUGIN_ID = `copilot-mem@${MARKETPLACE_NAME}`");
       expect(installRegion).toContain('enableCodexPluginConfig()');
       expect(installRegion).not.toContain('plugin_hooks');
     });

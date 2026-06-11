@@ -15,7 +15,7 @@ const packageVersion =
  * embed: the capture endpoints are public POST-only ingestion.
  * `CLAUDE_MEM_TELEMETRY_KEY` always overrides this constant.
  */
-export const TELEMETRY_PUBLIC_KEY = 'phc_BKJAeNbpj932N9qEiU6qhutZEiu6LLfRpXfTbLM9MLaG';
+export const TELEMETRY_PUBLIC_KEY = '';
 
 export const DEFAULT_TELEMETRY_HOST = 'https://us.i.posthog.com';
 

@@ -4,7 +4,7 @@ import type { InstallOptions } from './commands/install.js';
 
 const args = process.argv.slice(2);
 const firstArg = args[0]?.toLowerCase() ?? '';
-// If the first token is a flag (e.g. `npx claude-mem --provider claude`),
+// If the first token is a flag (e.g. `npx copilot-mem --provider claude`),
 // treat the invocation as `install` with those flags. Help/version flags are
 // handled directly so they don't get swallowed by the install path.
 const HELP_OR_VERSION_FLAGS = new Set(['-h', '--help', '-v', '--version']);
@@ -17,45 +17,45 @@ function printHelp(): void {
   const version = readPluginVersion();
 
   console.log(`
-${pc.bold('claude-mem')} v${version} — persistent memory for AI coding assistants
+${pc.bold('copilot-mem')} v${version} — persistent memory for AI coding assistants
 
 ${pc.bold('Install Commands')} (no Bun required):
-  ${pc.cyan('npx claude-mem')}                     Interactive install
-  ${pc.cyan('npx claude-mem install')}              Interactive install
-  ${pc.cyan('npx claude-mem install --ide <id>')}   Install for specific IDE
-  ${pc.cyan('npx claude-mem install --provider claude|gemini|openrouter')}   Set LLM provider non-interactively
-  ${pc.cyan('npx claude-mem install --model <id>')}   Set Claude model (when provider=claude)
-  ${pc.cyan('npx claude-mem install --no-auto-start')}   Skip worker auto-start at the end
-  ${pc.cyan('npx claude-mem install --disable-auto-memory')}   Explicitly disable Claude Code native auto-memory
-  ${pc.cyan('npx claude-mem install --runtime worker|server')}   Select runtime non-interactively (server brings up Docker pg+redis, generates an API key, injects the IDE MCP config)
-  ${pc.cyan('npx claude-mem install --runtime server --server-url <url>')}   Point the server runtime at a specific base URL
-  ${pc.cyan('npx claude-mem repair')}                Repair runtime (re-runs Bun/uv setup and bun install in plugin cache)
-  ${pc.cyan('npx claude-mem update')}               Update to latest version
-  ${pc.cyan('npx claude-mem uninstall')}            Remove plugin and configs
-  ${pc.cyan('npx claude-mem version')}              Print version
+  ${pc.cyan('npx copilot-mem')}                     Interactive install
+  ${pc.cyan('npx copilot-mem install')}              Interactive install
+  ${pc.cyan('npx copilot-mem install --ide <id>')}   Install for specific IDE
+  ${pc.cyan('npx copilot-mem install --provider claude|gemini|openrouter')}   Set LLM provider non-interactively
+  ${pc.cyan('npx copilot-mem install --model <id>')}   Set Claude model (when provider=claude)
+  ${pc.cyan('npx copilot-mem install --no-auto-start')}   Skip worker auto-start at the end
+  ${pc.cyan('npx copilot-mem install --disable-auto-memory')}   Explicitly disable Claude Code native auto-memory
+  ${pc.cyan('npx copilot-mem install --runtime worker|server')}   Select runtime non-interactively (server brings up Docker pg+redis, generates an API key, injects the IDE MCP config)
+  ${pc.cyan('npx copilot-mem install --runtime server --server-url <url>')}   Point the server runtime at a specific base URL
+  ${pc.cyan('npx copilot-mem repair')}                Repair runtime (re-runs Bun/uv setup and bun install in plugin cache)
+  ${pc.cyan('npx copilot-mem update')}               Update to latest version
+  ${pc.cyan('npx copilot-mem uninstall')}            Remove plugin and configs
+  ${pc.cyan('npx copilot-mem version')}              Print version
 
 ${pc.bold('Runtime Commands')} (requires Bun, delegates to installed plugin):
-  ${pc.cyan('npx claude-mem start')}                Start worker service
-  ${pc.cyan('npx claude-mem stop')}                 Stop worker service
-  ${pc.cyan('npx claude-mem restart')}              Restart worker service
-  ${pc.cyan('npx claude-mem status')}               Show worker status
-  ${pc.cyan('npx claude-mem doctor')}               Diagnose install/runtime health (bun, uv, worker)
-  ${pc.cyan('npx claude-mem telemetry status|enable|disable')}   Manage anonymous telemetry (on by default, opt-out)
-  ${pc.cyan('npx claude-mem server start')}         Start server service
-  ${pc.cyan('npx claude-mem server stop')}          Stop server service
-  ${pc.cyan('npx claude-mem server restart')}       Restart server service
-  ${pc.cyan('npx claude-mem server status')}        Show server status
-  ${pc.cyan('npx claude-mem server logs')}          Show recent server logs
-  ${pc.cyan('npx claude-mem server doctor')}        Check server configuration (not yet implemented)
-  ${pc.cyan('npx claude-mem server migrate')}       Run server migrations (not yet implemented)
-  ${pc.cyan('npx claude-mem server export')}        Export server data (not yet implemented)
-  ${pc.cyan('npx claude-mem server import')}        Import server data (not yet implemented)
-  ${pc.cyan('npx claude-mem server api-key create|list|revoke')}   Manage API keys (not yet implemented)
-  ${pc.cyan('npx claude-mem worker start|stop|restart|status')}    Worker compatibility aliases
-  ${pc.cyan('npx claude-mem search <query>')}       Search observations
-  ${pc.cyan('npx claude-mem adopt [--dry-run] [--branch <name>]')}    Stamp merged worktrees into parent project
-  ${pc.cyan('npx claude-mem cleanup [--dry-run]')}    Run one-time v12.4.3 pollution cleanup (or preview counts)
-  ${pc.cyan('npx claude-mem transcript watch')}     Start transcript watcher
+  ${pc.cyan('npx copilot-mem start')}                Start worker service
+  ${pc.cyan('npx copilot-mem stop')}                 Stop worker service
+  ${pc.cyan('npx copilot-mem restart')}              Restart worker service
+  ${pc.cyan('npx copilot-mem status')}               Show worker status
+  ${pc.cyan('npx copilot-mem doctor')}               Diagnose install/runtime health (bun, uv, worker)
+  ${pc.cyan('npx copilot-mem telemetry status|enable|disable')}   Manage anonymous telemetry (on by default, opt-out)
+  ${pc.cyan('npx copilot-mem server start')}         Start server service
+  ${pc.cyan('npx copilot-mem server stop')}          Stop server service
+  ${pc.cyan('npx copilot-mem server restart')}       Restart server service
+  ${pc.cyan('npx copilot-mem server status')}        Show server status
+  ${pc.cyan('npx copilot-mem server logs')}          Show recent server logs
+  ${pc.cyan('npx copilot-mem server doctor')}        Check server configuration (not yet implemented)
+  ${pc.cyan('npx copilot-mem server migrate')}       Run server migrations (not yet implemented)
+  ${pc.cyan('npx copilot-mem server export')}        Export server data (not yet implemented)
+  ${pc.cyan('npx copilot-mem server import')}        Import server data (not yet implemented)
+  ${pc.cyan('npx copilot-mem server api-key create|list|revoke')}   Manage API keys (not yet implemented)
+  ${pc.cyan('npx copilot-mem worker start|stop|restart|status')}    Worker compatibility aliases
+  ${pc.cyan('npx copilot-mem search <query>')}       Search observations
+  ${pc.cyan('npx copilot-mem adopt [--dry-run] [--branch <name>]')}    Stamp merged worktrees into parent project
+  ${pc.cyan('npx copilot-mem cleanup [--dry-run]')}    Run one-time v12.4.3 pollution cleanup (or preview counts)
+  ${pc.cyan('npx copilot-mem transcript watch')}     Start transcript watcher
 
 ${pc.bold('IDE Identifiers')}:
   claude-code, cursor, gemini-cli, opencode, openclaw,
@@ -212,7 +212,7 @@ async function main(): Promise<void> {
         runTranscriptWatchCommand();
       } else {
         console.error(pc.red(`Unknown transcript subcommand: ${subCommand ?? '(none)'}`));
-        console.error(`Usage: npx claude-mem transcript watch`);
+        console.error(`Usage: npx copilot-mem transcript watch`);
         process.exit(1);
       }
       break;
@@ -220,7 +220,7 @@ async function main(): Promise<void> {
 
     default: {
       console.error(pc.red(`Unknown command: ${command}`));
-      console.error(`Run ${pc.bold('npx claude-mem --help')} for usage information.`);
+      console.error(`Run ${pc.bold('npx copilot-mem --help')} for usage information.`);
       process.exit(1);
     }
   }

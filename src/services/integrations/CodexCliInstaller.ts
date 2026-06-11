@@ -10,8 +10,8 @@ const CODEX_DIR = path.join(homedir(), '.codex');
 const CODEX_AGENTS_MD_PATH = path.join(CODEX_DIR, 'AGENTS.md');
 const CODEX_TRANSCRIPT_WATCH_CONFIG_PATH = paths.transcriptsConfig();
 const CODEX_CONFIG_PATH = path.join(CODEX_DIR, 'config.toml');
-const MARKETPLACE_NAME = 'claude-mem-local';
-const CODEX_PLUGIN_ID = `claude-mem@${MARKETPLACE_NAME}`;
+const MARKETPLACE_NAME = 'copilot-mem-local';
+const CODEX_PLUGIN_ID = `copilot-mem@${MARKETPLACE_NAME}`;
 const LEGACY_CODEX_PLUGIN_IDS = ['claude-mem@thedotmack'];
 const MIN_CODEX_MARKETPLACE_VERSION = '0.128.0';
 const REQUIRED_MARKETPLACE_FILES = [
@@ -77,7 +77,7 @@ function resolvePluginMarketplaceRoot(preferredRoot?: string): string {
     if (resolved && missingMarketplaceFiles(resolved).length === 0) return resolved;
   }
 
-  throw new Error('Could not locate a Codex marketplace root with .agents/plugins/marketplace.json and plugin/.codex-plugin/plugin.json. Run npx claude-mem@latest install from the package or repo root.');
+  throw new Error('Could not locate a Codex marketplace root with .agents/plugins/marketplace.json and plugin/.codex-plugin/plugin.json. Run npx copilot-mem@latest install from the package or repo root.');
 }
 
 /**
@@ -259,7 +259,7 @@ function assertCodexMarketplaceSupported(): void {
 
   const minimumVersion = parseSemver(MIN_CODEX_MARKETPLACE_VERSION);
   if (minimumVersion && compareSemver(version, minimumVersion) < 0) {
-    throw new Error(`Codex CLI ${version.join('.')} is too old for plugin marketplace support. Update Codex CLI to ${MIN_CODEX_MARKETPLACE_VERSION} or newer, then run: npx claude-mem@latest install`);
+    throw new Error(`Codex CLI ${version.join('.')} is too old for plugin marketplace support. Update Codex CLI to ${MIN_CODEX_MARKETPLACE_VERSION} or newer, then run: npx copilot-mem@latest install`);
   }
 }
 
@@ -367,7 +367,7 @@ export async function installCodexCli(marketplaceRootOverride?: string): Promise
 
   if (!commandExists('codex')) {
     console.error('Codex CLI was not found on PATH.');
-    console.error('Install Codex, then run: npx claude-mem@latest install');
+    console.error('Install Codex, then run: npx copilot-mem@latest install');
     return 1;
   }
 
@@ -381,7 +381,7 @@ export async function installCodexCli(marketplaceRootOverride?: string): Promise
     runCodexBestEffort(
       ['plugin', 'marketplace', 'upgrade', MARKETPLACE_NAME],
       'Refreshed Codex marketplace and installed plugin cache.',
-      'Could not refresh Codex marketplace cache; reinstall or upgrade claude-mem from /plugins if Codex still uses old MCP config',
+      'Could not refresh Codex marketplace cache; reinstall or upgrade copilot-mem from /plugins if Codex still uses old MCP config',
     );
     if (!cleanupLegacyCodexAgentsMdContext()) {
       console.warn(`  Native Codex hooks registered, but failed to remove legacy AGENTS.md context from ${CODEX_AGENTS_MD_PATH}.`);
@@ -401,7 +401,7 @@ Next steps:
   2. Restart any running Codex sessions so native hooks are loaded
 
 For a fresh setup, the supported entry point is:
-  npx claude-mem@latest install
+  npx copilot-mem@latest install
 `);
     return 0;
   } catch (error) {

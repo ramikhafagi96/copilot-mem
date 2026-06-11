@@ -156,10 +156,10 @@ import { detectInstalledIDEs } from './ide-detection.js';
 function registerMarketplace(): void {
   const knownMarketplaces = readJsonSafe<Record<string, any>>(knownMarketplacesPath(), {});
 
-  knownMarketplaces['thedotmack'] = {
+  knownMarketplaces['ramikhafagi96'] = {
     source: {
       source: 'github',
-      repo: 'thedotmack/claude-mem',
+      repo: 'ramikhafagi96/copilot-mem',
     },
     installLocation: marketplaceDirectory(),
     lastUpdated: new Date().toISOString(),
@@ -179,7 +179,7 @@ function registerPlugin(version: string): void {
   const cachePath = pluginCacheDirectory(version);
   const now = new Date().toISOString();
 
-  installedPlugins.plugins['claude-mem@thedotmack'] = [
+  installedPlugins.plugins['copilot-mem@ramikhafagi96'] = [
     {
       scope: 'user',
       installPath: cachePath,
@@ -196,16 +196,16 @@ function enablePluginInClaudeSettings(): void {
   const settings = readJsonSafe<Record<string, any>>(claudeSettingsPath(), {});
 
   if (!settings.enabledPlugins) settings.enabledPlugins = {};
-  settings.enabledPlugins['claude-mem@thedotmack'] = true;
+  settings.enabledPlugins['copilot-mem@ramikhafagi96'] = true;
 
   writeJsonFileAtomic(claudeSettingsPath(), settings);
 }
 
 /**
  * Disable Claude Code's built-in auto-memory by setting CLAUDE_CODE_DISABLE_AUTO_MEMORY=1
- * in ~/.claude/settings.json `env` block. claude-mem provides its own persistent memory
+ * in ~/.claude/settings.json `env` block. copilot-mem provides its own persistent memory
  * via plugin hooks; the built-in MEMORY.md system creates shadow state outside the user's
- * control and competes with claude-mem for context window tokens.
+ * control and competes with copilot-mem for context window tokens.
  *
  * Per anthropics/claude-code#23544, the env var is the only supported toggle.
  *
@@ -255,7 +255,7 @@ async function resolveClaudeAutoMemoryChoice(
       {
         value: 'disable',
         label: 'Disable auto-memory',
-        hint: 'Only if you explicitly want claude-mem to replace native startup memory.',
+        hint: 'Only if you explicitly want copilot-mem to replace native startup memory.',
       },
     ],
     initialValue: 'leave-enabled',
@@ -308,7 +308,7 @@ function makeIDETask(ideId: string, summary: InstallSummary): TaskDescriptor | n
           if (mcpResult === 0) {
             return `Cursor: hooks + MCP installed ${pc.green('OK')}`;
           }
-          return `Cursor: hooks installed; MCP setup failed — run \`npx claude-mem cursor mcp\` ${pc.yellow('!')}`;
+          return `Cursor: hooks installed; MCP setup failed — run \`npx copilot-mem cursor mcp\` ${pc.yellow('!')}`;
         },
       };
     }
@@ -519,7 +519,7 @@ function applyClaudeCodePathSetupIfNeeded(): void {
   } else {
     try {
       const trailing = existing.length === 0 || existing.endsWith('\n') ? '' : '\n';
-      const block = `${trailing}\n# Added by claude-mem installer for Claude Code\n${exportLine}\n`;
+      const block = `${trailing}\n# Added by copilot-mem installer for Claude Code\n${exportLine}\n`;
       writeFileSync(configFile, existing + block, 'utf-8');
       log.success(`Added Claude Code to PATH in ${configFile}`);
     } catch (error: unknown) {
@@ -585,7 +585,7 @@ async function promptForIDESelection(): Promise<string[]> {
   const claudeCodeInfo = detectedIDEs.find((ide) => ide.id === 'claude-code');
 
   if (claudeCodeInfo && !claudeCodeInfo.detected) {
-    log.warn('Claude Code is not installed. Claude-mem works best in Claude Code, but also works with the IDEs below.');
+    log.warn('Claude Code is not installed. Copilot-mem works best in Claude Code, but also works with the IDEs below.');
     const choice = await p.select<'install' | 'skip' | 'cancel'>({
       message: 'Install Claude Code now?',
       options: [
@@ -830,7 +830,7 @@ async function promptRuntime(options: InstallOptions): Promise<RuntimeId> {
   }
 
   const selected = await p.select<RuntimeId>({
-    message: 'Which runtime should claude-mem start after install?',
+    message: 'Which runtime should copilot-mem start after install?',
     options: [
       { value: 'worker', label: 'Worker', hint: 'stable compatibility path' },
       { value: 'server-beta', label: 'Server (beta)', hint: 'REST V1, API keys, team-ready storage' },
@@ -890,11 +890,11 @@ async function setupServerRuntimeNonInteractive(options: InstallOptions): Promis
 async function maybeBootstrapServerBetaApiKey(): Promise<void> {
   // Only attempt if Postgres is configured. Without DATABASE_URL we cannot
   // reach the api_keys table — the operator must configure the server first
-  // and rerun `claude-mem server keys rotate`.
+  // and rerun `copilot-mem server keys rotate`.
   if (!process.env.CLAUDE_MEM_SERVER_DATABASE_URL) {
     log.warn(
       'Skipping local hook API key bootstrap: CLAUDE_MEM_SERVER_DATABASE_URL is not set. '
-        + 'Run `npx claude-mem server keys rotate` after configuring Postgres to provision a key.',
+        + 'Run `npx copilot-mem server keys rotate` after configuring Postgres to provision a key.',
     );
     return;
   }
@@ -914,7 +914,7 @@ async function maybeBootstrapServerBetaApiKey(): Promise<void> {
   } catch (error: unknown) {
     log.warn(
       `Failed to bootstrap server-beta API key: ${error instanceof Error ? error.message : String(error)}. `
-        + 'Hooks will fall back to the worker until you run `npx claude-mem server keys rotate`.',
+        + 'Hooks will fall back to the worker until you run `npx copilot-mem server keys rotate`.',
     );
   }
 }
@@ -938,7 +938,7 @@ async function promptProvider(options: InstallOptions): Promise<ProviderId> {
       ANTHROPIC_BASE_URL: '',
       ANTHROPIC_AUTH_TOKEN: '',
     });
-    log.info('Configured claude-mem to use your logged-in Claude SDK account.');
+    log.info('Configured copilot-mem to use your logged-in Claude SDK account.');
   };
 
   const configureDirectApiKey = async (): Promise<void> => {
@@ -1071,7 +1071,7 @@ async function promptProvider(options: InstallOptions): Promise<ProviderId> {
     }
 
     const apiModeResult = await p.select<ClaudeApiMode>({
-      message: 'How should claude-mem connect?',
+      message: 'How should copilot-mem connect?',
       options: [
         { value: 'direct', label: 'Anthropic API key' },
         { value: 'gateway', label: 'LiteLLM or custom gateway' },
@@ -1207,7 +1207,7 @@ async function promptClaudeModel(options: InstallOptions): Promise<void> {
   const initialValue = allowed.has(initialModel) ? initialModel : 'claude-haiku-4-5-20251001';
 
   const result = await p.select<string>({
-    message: 'Which Claude model should claude-mem use to compress observations?\nThis runs whenever you and Claude touch a file — keep it cheap and fast.',
+    message: 'Which Claude model should copilot-mem use to compress observations?\nThis runs whenever you and Claude touch a file — keep it cheap and fast.',
     options: [
       { value: 'claude-haiku-4-5-20251001', label: 'Haiku 4.5 (recommended — fast, cheap, great for compression)' },
       { value: 'claude-sonnet-4-6', label: 'Sonnet 4.6 (balanced quality and cost)' },
@@ -1306,7 +1306,7 @@ async function promptTelemetryOptIn(): Promise<void> {
 
   p.log.message(pc.dim(
     'Anonymous install ID only — no prompts, file paths, code, or project names, ever.\n'
-    + 'Details: https://docs.claude-mem.ai/telemetry · Change anytime: claude-mem telemetry disable',
+    + 'Details: https://github.com/ramikhafagi96/copilot-mem/tree/main/docs/public/telemetry · Change anytime: copilot-mem telemetry disable',
   ));
   const consent = await p.confirm({
     message: 'Share anonymized usage data with CMEM? It is on by default and helps us make the product better.',
@@ -1424,7 +1424,7 @@ export async function runInstallCommand(options: InstallOptions = {}): Promise<v
       if (isInteractive) {
         p.log.error(headline);
         p.log.error(error.remediation);
-        p.outro(pc.red('claude-mem installation aborted.'));
+        p.outro(pc.red('copilot-mem installation aborted.'));
       } else {
         console.error(`\n  ${headline}`);
         console.error(`  ${error.remediation}`);
@@ -1446,9 +1446,9 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
 
   if (isInteractive) {
     await playBanner();
-    p.intro(pc.bgCyan(pc.black(' claude-mem install ')));
+    p.intro(pc.bgCyan(pc.black(' copilot-mem install ')));
   } else {
-    console.log('claude-mem install');
+    console.log('copilot-mem install');
   }
   const marketplaceDir = marketplaceDirectory();
   const alreadyInstalled = existsSync(join(marketplaceDir, 'plugin', '.claude-plugin', 'plugin.json'));
@@ -1466,7 +1466,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
   }
 
   const dot = pc.dim('·');
-  const segments = [`${pc.bold('claude-mem')} ${pc.cyan(`v${version}`)}`];
+  const segments = [`${pc.bold('copilot-mem')} ${pc.cyan(`v${version}`)}`];
   if (existingVersion && existingVersion !== version) {
     segments.push(`installed ${pc.yellow(`v${existingVersion}`)}`);
   } else if (existingVersion) {
@@ -1638,7 +1638,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
 
   // Optionally disable Claude Code's built-in auto-memory (CLAUDE_CODE_DISABLE_AUTO_MEMORY=1)
   // when the user explicitly opts in, either through the interactive prompt or
-  // via --disable-auto-memory. claude-mem's hook-based memory is the intended
+  // via --disable-auto-memory. copilot-mem's hook-based memory is the intended
   // source of cross-session context, but we no longer mutate settings.json silently.
   // Four-state so the summary can distinguish "wrote", "already set", "left enabled",
   // and "failed". A boolean would conflate the error path with a deliberate no-op.
@@ -1668,7 +1668,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
   }
 
   // The server runtime is brought up via its own stack (Docker pg+redis +
-  // `claude-mem server start`), NOT the worker-service spawner. Skip the
+  // `copilot-mem server start`), NOT the worker-service spawner. Skip the
   // worker-only autostart entirely so the server runtime never invokes the
   // worker path (#2543).
   const autoStartSkipped = !isInteractive || options.noAutoStart || selectedRuntime === 'server-beta';
@@ -1678,7 +1678,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
       title: selectedRuntime === 'server-beta' ? 'Starting server beta daemon' : 'Starting worker daemon',
       task: async (message) => {
         if (selectedRuntime === 'server-beta') {
-          return `Server runtime selected — start it with ${pc.bold('npx claude-mem server start')} ${pc.dim('(or via Docker compose)')}`;
+          return `Server runtime selected — start it with ${pc.bold('npx copilot-mem server start')} ${pc.dim('(or via Docker compose)')}`;
         }
         if (autoStartSkipped) {
           return isInteractive
@@ -1699,7 +1699,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
           case 'warming':
             return `Worker starting on port ${port} — finishing in background ${pc.yellow('⏳')}`;
           case 'dead':
-            return `Worker did not start — try \`npx claude-mem start\` manually ${pc.yellow('!')}`;
+            return `Worker did not start — try \`npx copilot-mem start\` manually ${pc.yellow('!')}`;
         }
       },
     },
@@ -1779,7 +1779,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
   const finalWorkerState = workerStartResult as WorkerStartResult;
   const workerAlive = finalWorkerState !== 'dead' || workerReady;
   const runtimeLabel = selectedRuntime === 'server-beta' ? 'Server beta' : 'Worker';
-  const runtimeStartCommand = selectedRuntime === 'server-beta' ? 'npx claude-mem server start' : 'npx claude-mem start';
+  const runtimeStartCommand = selectedRuntime === 'server-beta' ? 'npx copilot-mem server start' : 'npx copilot-mem start';
   const workerHeadline = autoStartSkipped
     ? `${pc.yellow('!')} ${runtimeLabel} autostart skipped — start it manually with ${pc.bold(runtimeStartCommand)}`
     : workerReady || finalWorkerState === 'ready'
@@ -1818,7 +1818,7 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
         `${pc.dim('Note: close all Claude Code sessions before uninstalling, or ~/.claude-mem will be recreated by active hooks.')}`,
       ]
     : [
-        `${pc.yellow('!')} Worker not yet ready on port ${pc.cyan(String(workerPort))} -- still starting up; check ${pc.bold('claude-mem status')} later, or start manually: ${pc.bold('npx claude-mem start')}`,
+        `${pc.yellow('!')} Worker not yet ready on port ${pc.cyan(String(workerPort))} -- still starting up; check ${pc.bold('copilot-mem status')} later, or start manually: ${pc.bold('npx copilot-mem start')}`,
         ``,
         `${pc.bold('First success:')} keep ${pc.underline(`http://localhost:${workerPort}`)} open in a browser, then open Claude Code in any project. Observations stream in as Claude reads, edits, and runs commands.`,
         ``,
@@ -1839,18 +1839,18 @@ async function runInstallCommandInner(options: InstallOptions, summary: InstallS
     // the product is installed and working, never as a gate in front of it.
     await promptTelemetryOptIn();
     if (failedIDEs.length > 0) {
-      p.outro(pc.yellow('claude-mem installed with some IDE setup failures.'));
+      p.outro(pc.yellow('copilot-mem installed with some IDE setup failures.'));
     } else {
-      p.outro(pc.green('claude-mem installed successfully!'));
+      p.outro(pc.green('copilot-mem installed successfully!'));
     }
   } else {
     console.log('\n  Next Steps');
     nextSteps.forEach(l => console.log(`  ${l}`));
     if (failedIDEs.length > 0) {
-      console.log('\nclaude-mem installed with some IDE setup failures.');
+      console.log('\ncopilot-mem installed with some IDE setup failures.');
       process.exitCode = 1;
     } else {
-      console.log('\nclaude-mem installed successfully!');
+      console.log('\ncopilot-mem installed successfully!');
     }
   }
 
@@ -1877,9 +1877,9 @@ export async function runRepairCommand(): Promise<void> {
   const cacheDir = pluginCacheDirectory(version);
 
   if (isInteractive) {
-    p.intro(pc.bgCyan(pc.black(' claude-mem repair ')));
+    p.intro(pc.bgCyan(pc.black(' copilot-mem repair ')));
   } else {
-    console.log('claude-mem repair');
+    console.log('copilot-mem repair');
   }
   log.info(`Version: ${pc.cyan(version)}`);
 
@@ -1908,8 +1908,8 @@ export async function runRepairCommand(): Promise<void> {
   ]);
 
   if (isInteractive) {
-    p.outro(pc.green('claude-mem repair complete.'));
+    p.outro(pc.green('copilot-mem repair complete.'));
   } else {
-    console.log('claude-mem repair complete.');
+    console.log('copilot-mem repair complete.');
   }
 }

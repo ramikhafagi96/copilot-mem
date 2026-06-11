@@ -1,16 +1,16 @@
 ---
 title: "VS Code Copilot Setup"
-description: "Add persistent memory to GitHub Copilot in VS Code with claude-mem"
+description: "Add persistent memory to GitHub Copilot in VS Code with copilot-mem"
 ---
 
 # VS Code Copilot Setup
 
 > **Give GitHub Copilot agent sessions persistent memory across sessions.**
 
-Copilot agent mode starts every session from scratch. Claude-mem changes that by capturing observations, decisions, and patterns — then injecting relevant context into each new session.
+Copilot agent mode starts every session from scratch. Copilot-mem changes that by capturing observations, decisions, and patterns — then injecting relevant context into each new session.
 
 <Info>
-**How it works:** VS Code's agent plugin system loads claude-mem directly — it reads the Claude-format plugin manifest, runs the same lifecycle hooks (SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop), and registers the bundled MCP search server. Claude-mem detects VS Code payloads automatically and normalizes Copilot's tool names (`read_file`, `replace_string_in_file`, `run_in_terminal`, …) into its canonical observation format.
+**How it works:** VS Code's agent plugin system loads copilot-mem directly — it reads the plugin manifest, runs the lifecycle hooks (SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop), and registers the bundled MCP search server. Copilot-mem detects VS Code payloads automatically and normalizes Copilot's tool names (`read_file`, `replace_string_in_file`, `run_in_terminal`, …) into its canonical observation format.
 </Info>
 
 ## Prerequisites
@@ -28,36 +28,36 @@ Copilot agent mode starts every session from scratch. Claude-mem changes that by
 3. Enter the repository URL:
 
 ```
-https://github.com/thedotmack/claude-mem
+https://github.com/ramikhafagi96/copilot-mem
 ```
 
-VS Code clones the repository, detects the Claude-format plugin, and loads its hooks, skills, and MCP server.
+VS Code clones the repository, detects the plugin, and loads its hooks, skills, and MCP server.
 
 ### Option 2: Install via GitHub Copilot CLI
 
 Plugins installed through the Copilot CLI (under `~/.copilot/installed-plugins/`) are discovered by VS Code automatically:
 
 ```bash
-copilot plugin install thedotmack/claude-mem
+copilot plugin install ramikhafagi96/copilot-mem
 ```
 
 ### Option 3: Add as a plugin marketplace
 
-Add the repository to `chat.pluginMarketplaces` in your VS Code settings, then install **claude-mem** from the Extensions sidebar (filter with `@agentPlugins`):
+Add the repository to `chat.pluginMarketplaces` in your VS Code settings, then install **copilot-mem** from the Extensions sidebar (filter with `@agentPlugins`):
 
 ```json
 {
-  "chat.pluginMarketplaces": ["thedotmack/claude-mem"]
+  "chat.pluginMarketplaces": ["ramikhafagi96/copilot-mem"]
 }
 ```
 
 ## Verify the installation
 
 1. Start a new Copilot agent session in a project
-2. The SessionStart hook starts the claude-mem worker — check it with:
+2. The SessionStart hook starts the copilot-mem worker — check it with:
 
 ```bash
-npx claude-mem status
+npx copilot-mem status
 ```
 
 3. After ending a session and starting another in the same project, recent memory context appears at the start of the new session
@@ -72,12 +72,11 @@ npx claude-mem status
 | Per-file history timelines before large reads | ✅ via PreToolUse hook |
 | Session summaries on stop | ✅ via Stop hook (reads Copilot transcripts) |
 | Memory search tools in agent mode | ✅ via bundled MCP server |
-| Shared memory with Claude Code, Cursor, Codex, Gemini CLI | ✅ same local database |
 
-Sessions captured from VS Code are attributed to the `vscode` platform, and memories are shared with every other editor claude-mem is installed in — ask Copilot about work you did in Claude Code and vice versa.
+Sessions captured from VS Code are attributed to the `vscode` platform — ask Copilot about work you did in earlier sessions and it can search the local memory database.
 
 <Note>
-VS Code runs hooks for every tool regardless of the matchers in `hooks.json` (matchers are parsed but not applied). Claude-mem accounts for this internally — file timelines only inject ahead of read tools, and mutating tools are excluded.
+VS Code runs hooks for every tool regardless of the matchers in `hooks.json` (matchers are parsed but not applied). Copilot-mem accounts for this internally — file timelines only inject ahead of read tools, and mutating tools are excluded.
 </Note>
 
 ## Troubleshooting
@@ -87,8 +86,8 @@ VS Code runs hooks for every tool regardless of the matchers in `hooks.json` (ma
 **Worker not running:** Hooks start it automatically, but you can manage it manually:
 
 ```bash
-npx claude-mem start    # start the worker
-npx claude-mem logs     # inspect worker logs
+npx copilot-mem start    # start the worker
+npx copilot-mem logs     # inspect worker logs
 ```
 
 **No context injected:** Context appears from the second session onward — the first session only captures observations.

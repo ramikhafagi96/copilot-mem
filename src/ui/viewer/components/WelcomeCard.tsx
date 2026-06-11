@@ -6,7 +6,7 @@ interface WelcomeCardProps {
 
 const STORAGE_KEY = 'claude-mem-welcome-dismissed-v3';
 const EXPLAINER_URL = '/api/onboarding/explainer';
-const DOCS_URL = 'https://docs.claude-mem.ai';
+const DOCS_URL = 'https://github.com/ramikhafagi96/copilot-mem';
 
 export function getStoredWelcomeDismissed(): boolean {
   try {
@@ -187,7 +187,7 @@ export function WelcomeCard({ onDismiss }: WelcomeCardProps) {
 
         <header className="welcome-modal-header">
           <img className="welcome-modal-logo" src="claude-mem-logo-stylized.png" alt="" width="96" height="96" />
-          <h2 id="welcome-modal-title">Welcome to claude-mem</h2>
+          <h2 id="welcome-modal-title">Welcome to copilot-mem</h2>
           <p>Persistent memory for Claude Code.</p>
         </header>
 

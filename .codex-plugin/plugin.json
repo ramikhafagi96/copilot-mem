@@ -1,18 +1,18 @@
 {
-  "name": "claude-mem",
+  "name": "copilot-mem",
   "version": "13.5.5",
-  "description": "Memory compression system for Claude Code - persist context across sessions",
+  "description": "Persistent memory for GitHub Copilot in VS Code - persist context across agent sessions",
   "author": {
-    "name": "Alex Newman",
-    "url": "https://github.com/thedotmack"
+    "name": "Rami Khafagi",
+    "url": "https://github.com/ramikhafagi96"
   },
-  "homepage": "https://github.com/thedotmack/claude-mem#readme",
-  "repository": "https://github.com/thedotmack/claude-mem",
+  "homepage": "https://github.com/ramikhafagi96/copilot-mem#readme",
+  "repository": "https://github.com/ramikhafagi96/copilot-mem",
   "license": "Apache-2.0",
   "keywords": [
-    "claude",
-    "claude-code",
-    "claude-agent-sdk",
+    "copilot",
+    "github-copilot",
+    "vscode",
     "mcp",
     "plugin",
     "memory",
@@ -26,16 +26,16 @@
   "mcpServers": "./plugin/.mcp.json",
   "hooks": "./plugin/hooks/codex-hooks.json",
   "interface": {
-    "displayName": "claude-mem",
+    "displayName": "copilot-mem",
     "shortDescription": "Persistent memory and context compression across coding sessions.",
-    "longDescription": "claude-mem captures coding-session activity, compresses it into reusable observations, and injects relevant context back into future Claude Code and Codex-compatible sessions.",
-    "developerName": "Alex Newman",
+    "longDescription": "copilot-mem captures coding-session activity, compresses it into reusable observations, and injects relevant context back into future GitHub Copilot agent sessions in VS Code.",
+    "developerName": "Rami Khafagi",
     "category": "Productivity",
     "capabilities": [
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://github.com/thedotmack/claude-mem",
+    "websiteURL": "https://github.com/ramikhafagi96/copilot-mem",
     "defaultPrompt": [
       "Find what I already learned about this codebase before I start a new task.",
       "Show recent observations related to the files I am editing right now.",

@@ -501,8 +501,8 @@ export class OpenRouterProvider {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${apiKey}`,
-            'HTTP-Referer': siteUrl || 'https://github.com/thedotmack/claude-mem',
-            'X-Title': appName || 'claude-mem',
+            'HTTP-Referer': siteUrl || 'https://github.com/ramikhafagi96/copilot-mem',
+            'X-Title': appName || 'copilot-mem',
             'Content-Type': 'application/json',
             ...(priorRequestId ? { 'x-claude-mem-prior-request-id': priorRequestId } : {}),
           },
@@ -621,7 +621,7 @@ export class OpenRouterProvider {
     const apiUrl = resolveOpenRouterChatCompletionsUrl(baseUrl);
 
     const siteUrl = settings.CLAUDE_MEM_OPENROUTER_SITE_URL || '';
-    const appName = settings.CLAUDE_MEM_OPENROUTER_APP_NAME || 'claude-mem';
+    const appName = settings.CLAUDE_MEM_OPENROUTER_APP_NAME || 'copilot-mem';
 
     return { apiKey, model, apiUrl, siteUrl, appName };
   }

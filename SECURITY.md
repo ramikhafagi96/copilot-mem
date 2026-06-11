@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Only the latest released version of `claude-mem` receives security updates. Please upgrade to the latest version before reporting a vulnerability.
+Only the latest released version of `copilot-mem` receives security updates. Please upgrade to the latest version before reporting a vulnerability.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,13 +11,13 @@ Only the latest released version of `claude-mem` receives security updates. Plea
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in claude-mem, please report it by:
+If you discover a security vulnerability in copilot-mem, please report it by:
 
 1. **DO NOT** create a public GitHub issue, pull request, or discussion
 2. Email **alex@cmem.ai** with details, OR use GitHub's "Report a vulnerability" button under the Security tab to open a private security advisory
 3. Include steps to reproduce, impact assessment, affected version(s), and suggested fixes if possible
 
-**Scope:** This policy covers the `claude-mem` plugin and its bundled components (hooks, worker service, SQLite/Chroma sync, viewer UI, search/planning skills). Issues in upstream dependencies should be reported to those projects directly, but feel free to flag them to us as well.
+**Scope:** This policy covers the `copilot-mem` plugin and its bundled components (hooks, worker service, SQLite/Chroma sync, viewer UI, search/planning skills). Issues in upstream dependencies should be reported to those projects directly, but feel free to flag them to us as well.
 
 We take security seriously, will acknowledge valid reports within 48 hours, and aim to ship a fix in the next release.
 
@@ -25,7 +25,7 @@ We take security seriously, will acknowledge valid reports within 48 hours, and 
 
 ### Command Injection Prevention
 
-Claude-mem executes system commands for git operations and process management. We have implemented comprehensive protections against command injection:
+Copilot-mem executes system commands for git operations and process management. We have implemented comprehensive protections against command injection:
 
 #### Safe Command Execution
 - **Array-based Arguments:** All commands use array-based arguments to prevent shell interpretation
@@ -60,7 +60,7 @@ All user-controlled inputs are validated using whitelists and strict patterns:
 
 ### Privacy Controls
 
-Claude-mem includes dual-tag system for content privacy:
+Copilot-mem includes dual-tag system for content privacy:
 
 - `<private>content</private>` - User-level privacy (prevents storage)
 - `<claude-mem-context>content</claude-mem-context>` - System-level tag (prevents recursive storage)
@@ -147,28 +147,28 @@ We regularly audit dependencies for vulnerabilities:
 
 ## Data Storage
 
-Claude-mem stores data locally in `~/.claude-mem/`:
+Copilot-mem stores data locally in `~/.claude-mem/`:
 
 - **Database:** SQLite3 at `~/.claude-mem/claude-mem.db`
 - **Vector Store:** Chroma at `~/.claude-mem/chroma/`
 - **Logs:** `~/.claude-mem/logs/`
 - **Settings:** `~/.claude-mem/settings.json`
 
-All claude-mem state files (database, vector store, logs, settings, supervisor and PID files) are written to the local user directory and are not uploaded by claude-mem itself. Claude-mem does not collect telemetry.
+All copilot-mem state files (database, vector store, logs, settings, supervisor and PID files) are written to the local user directory and are not uploaded by copilot-mem itself. Copilot-mem does not collect telemetry.
 
-However, by design claude-mem invokes upstream model providers and optional integrations to do its work, so observation/transcript/prompt content can leave the machine through those channels:
+However, by design copilot-mem invokes upstream model providers and optional integrations to do its work, so observation/transcript/prompt content can leave the machine through those channels:
 
 - **Claude Agent SDK** (default summarization/observation path): sends prompts and transcript context to Anthropic's API.
 - **Alternate providers** (`gemini`, `openrouter`): when configured, send the same context to those providers instead.
 - **Chroma MCP / `chroma-mcp`**: when enabled, computes embeddings via the configured embedding backend, which may be a remote API depending on the user's chroma-mcp configuration.
-- **OAuth / keychain reads**: claude-mem reads the Claude Code OAuth token from the platform-native credential store at spawn time. The token is injected into worker subprocesses but is not transmitted by claude-mem.
+- **OAuth / keychain reads**: copilot-mem reads the Claude Code OAuth token from the platform-native credential store at spawn time. The token is injected into worker subprocesses but is not transmitted by copilot-mem.
 - **GitHub releases / npm registry**: version-check and self-update flows fetch metadata from public registries.
 
 Review your provider/Chroma configuration in `~/.claude-mem/settings.json` and `~/.claude-mem/.env` before sending sensitive content. Use `<private>...</private>` tags to keep specific content out of the local store.
 
 ## Permissions
 
-Claude-mem requires:
+Copilot-mem requires:
 
 - **File System:** Read/write to `~/.claude-mem/` and `~/.claude/plugins/`
 - **Network:** HTTP server on localhost (default port 37777)
@@ -187,7 +187,7 @@ No elevated privileges (root/administrator) are required.
 
 Security patches are released as soon as possible after discovery. Users should:
 
-1. Keep claude-mem updated to the latest version
+1. Keep copilot-mem updated to the latest version
 2. Monitor GitHub releases for security announcements
 3. Review [CHANGELOG.md](./CHANGELOG.md) for security-related changes
 
